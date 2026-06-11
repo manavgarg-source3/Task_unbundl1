@@ -1,16 +1,132 @@
-# React + Vite
+# Whistle Aligners — Frontend Implementation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-quality React + Vite application that recreates the Whistle Aligners landing page from a Figma design. This project demonstrates React fundamentals, component-based architecture, responsive design, dynamic data handling, and clean code organization.
 
-Currently, two official plugins are available:
+![Whistle Aligners](public/images/whistle-logo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Setup Instructions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Start development server
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── Hero/
+│   │   ├── Hero.jsx          # Hero section with form and navigation
+│   │   └── Hero.css          # Hero-specific styles
+│   ├── Results/
+│   │   ├── Results.jsx       # Before/after transformation cards
+│   │   └── Results.css       # Results grid and card styles
+│   ├── WhyWhistle/
+│   │   ├── WhyWhistle.jsx    # API-powered feature cards
+│   │   └── WhyWhistle.css    # Card grid with loading/error states
+│   └── FAQ/
+│       ├── FAQ.jsx           # Accordion with keyboard accessibility
+│       └── FAQ.css           # Expand/collapse animations
+├── data/
+│   ├── results.json          # Smile transformation data (local)
+│   └── faq.json              # FAQ questions and answers (local)
+├── App.jsx                   # Root component composing all sections
+├── main.jsx                  # React 18 entry point
+└── index.css                 # Global design system and CSS reset
+```
+
+---
+
+## 📊 Data Sources
+
+| Section       | Source                                    | Rationale                                                                                 |
+|---------------|-------------------------------------------|-------------------------------------------------------------------------------------------|
+| **Hero**      | Static/inline                             | Form inputs and navigation — no external data needed                                     |
+| **Results**   | `src/data/results.json`                   | Before/after smile transformations require dental-specific data that no public API provides |
+| **Why Whistle** | [DummyJSON API](https://dummyjson.com/products?limit=4) | Uses `thumbnail` → image, `title` → heading, `description` → content as required        |
+| **FAQ**       | `src/data/faq.json`                       | FAQ content is domain-specific (dental aligners) and requires curated answers             |
+
+### Data Decision Rationale
+
+- **Why Whistle section uses a public API** (`dummyjson.com/products?limit=4`) to demonstrate dynamic data handling with `useState`, `useEffect`, loading states, and error handling as specified in the assessment.
+- **Results and FAQ use local JSON** because their content is domain-specific (dental transformations and aligner FAQs) and no public API provides suitable dental data.
+
+---
+
+## 🎨 Implementation Approach
+
+### Component Architecture
+Each section is a self-contained React component with its own CSS file, following the **BEM naming convention** (`block__element--modifier`). Components are functional and use React hooks exclusively.
+
+### API Integration
+The **Why Whistle** section demonstrates:
+- `useEffect` for data fetching on mount
+- `useState` for managing loading, error, and data states
+- **Loading skeleton** with shimmer animation during fetch
+- **Error state** with a retry button and descriptive message
+- **Data transformation** mapping API fields to UI props
+
+### Styling Strategy
+- **Custom CSS only** — no utility frameworks
+- **CSS custom properties** for a consistent design system (colors, spacing, typography, shadows)
+- **BEM methodology** for maintainable, scoped class names
+- **Google Fonts** (Inter) for modern, clean typography
+
+### Responsiveness
+Three breakpoints ensure the design adapts gracefully:
+
+| Breakpoint | Target       | Key Changes                                      |
+|------------|--------------|--------------------------------------------------|
+| `1024px`   | Tablet       | Adjust grid columns, reduce font sizes           |
+| `768px`    | Small Tablet | Stack layouts vertically, hide desktop nav       |
+| `480px`    | Mobile       | Single-column layouts, compact spacing           |
+
+### Accessibility
+- Semantic HTML5 elements (`<section>`, `<nav>`, `<form>`, `<button>`)
+- Proper `<label>` associations for all form inputs
+- ARIA attributes on the FAQ accordion (`aria-expanded`, `aria-controls`, `role`)
+- Keyboard navigation (Enter/Space to toggle FAQ items)
+- `focus-visible` outlines for keyboard users
+- Descriptive `alt` text on all images
+
+---
+
+## ✨ Key Features
+
+- **Sticky navigation** with glassmorphism backdrop blur
+- **Animated floating cards** on the hero section (clinic selector + stats badge)
+- **Star ratings** with SVG icons
+- **Before/After image cards** with gradient overlays and hover zoom
+- **Shimmer skeleton loader** during API requests
+- **Smooth accordion** with CSS `max-height` transitions
+- **Purple gradient CTA buttons** with hover lift effects
+- **Micro-animations** (fade-in-up on scroll, hover transforms)
+
+---
+
+## 🛠 Tech Stack
+
+- **React 18** — Functional components with hooks
+- **Vite** — Lightning-fast HMR and build tooling
+- **Custom CSS** — Design system with CSS custom properties
+- **DummyJSON API** — External data source for dynamic rendering
+
+---
+
+## 📝 License
+
+This project was created as a frontend development assessment.
