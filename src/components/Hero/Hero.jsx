@@ -8,6 +8,8 @@ function Hero() {
     mobile: '',
     consent: false,
   });
+  
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,35 +25,57 @@ function Hero() {
       alert('Please provide consent to proceed.');
       return;
     }
-    alert(`Thank you, ${formData.fullName}! We'll contact you at ${formData.mobile} to book your free scan.`);
+    setShowPopup(true);
   };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setFormData({ teethGap: '', fullName: '', mobile: '', consent: false });
+  };
+
+  // Group of repeating text for the marquee
+  const marqueeContent = (
+    <>
+      <span>Our inaugural launch benefit</span>
+      <span><strong>Free teeth scan</strong> worth ₹500</span>
+      <span><strong>Free orthodontic consultation</strong> worth ₹1500</span>
+      <span>Our inaugural launch benefit</span>
+      <span><strong>Free teeth scan</strong> worth ₹500</span>
+      <span><strong>Free orthodontic consultation</strong> worth ₹1500</span>
+    </>
+  );
 
   return (
     <>
       {/* ===== HEADER ===== */}
       <header className="header" id="header">
         <div className="header__inner">
-          <div className="header__logo">
-            <span className="header__logo-text">whistle</span>
+          <div className="header__logo-container">
+            <div className="header__logo-top">
+              <span className="header__logo-text">whistle</span>
+              <span className="header__logo-tm">TM</span>
+            </div>
             <span className="header__logo-sub">AND SMILE</span>
           </div>
+          
           <button className="header__phone-btn" aria-label="Call us">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.384 17.752a2.108 2.108 0 0 1-.522 2.296c-.736.745-1.748 1.25-2.775 1.341-3.524.314-7.514-1.396-10.707-4.588C4.187 13.61 2.478 9.62 2.791 6.096c.092-1.026.596-2.038 1.34-2.775a2.108 2.108 0 0 1 2.297-.521c.883.336 1.636 1.054 2.146 1.86l1.246 1.972c.484.767.545 1.748.163 2.569l-1.127 2.41c1.233 2.137 3.018 3.921 5.155 5.154l2.41-1.126c.821-.383 1.802-.322 2.57.162l1.972 1.246c.806.51 1.524 1.263 1.86 2.146z" fill="white"/>
+              <path d="M15.5 3.5a8.5 8.5 0 0 1 5 5M15.5 7.5a4.5 4.5 0 0 1 1 1" stroke="white" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </button>
         </div>
+        
         {/* Offer Banner */}
         <div className="header__banner">
           <p className="header__banner-text">
-            Starting at <span className="header__banner-strike">₹69,999</span> ₹47,999. Hurry! Offer ends soon.
+            Starting at <span className="header__banner-strike">Rs 69,999</span> Rs 47,999. Hurry! Offer ends soon.
           </p>
         </div>
       </header>
 
       {/* ===== HERO SECTION ===== */}
       <section className="hero" id="hero">
-        {/* Hero Top — Heading + Image */}
         <div className="hero__top">
           <div className="hero__top-inner">
             <div className="hero__text">
@@ -59,13 +83,13 @@ function Hero() {
                 Invisible Aligners for a dream smile
               </h1>
               <p className="hero__subtitle">
-                Book a Scan and avail a free<br />
+                Book a Scan and avail a free<br className="desktop-break" />
                 Orthodontist Consult <span className="hero__subtitle-highlight">worth ₹1500</span>
               </p>
             </div>
             <div className="hero__image">
               <img
-                src="/images/hero-woman.png"
+                src="/images/image.png"
                 alt="Smiling woman holding a clear aligner"
                 className="hero__image-img"
               />
@@ -81,7 +105,7 @@ function Hero() {
             </h2>
 
             <div className="hero__radio-group" role="radiogroup" aria-label="Teeth gap question">
-              <label className={`hero__radio-label ${formData.teethGap === 'Yes' ? 'hero__radio-label--active' : ''}`}>
+              <label className="hero__radio-label">
                 <input
                   type="radio"
                   name="teethGap"
@@ -90,10 +114,10 @@ function Hero() {
                   onChange={handleInputChange}
                   className="hero__radio-input"
                 />
-                <span className="hero__radio-circle"></span>
+                <span className={`hero__radio-circle ${formData.teethGap === 'Yes' ? 'active' : ''}`}></span>
                 Yes
               </label>
-              <label className={`hero__radio-label ${formData.teethGap === 'No' ? 'hero__radio-label--active' : ''}`}>
+              <label className="hero__radio-label">
                 <input
                   type="radio"
                   name="teethGap"
@@ -102,48 +126,41 @@ function Hero() {
                   onChange={handleInputChange}
                   className="hero__radio-input"
                 />
-                <span className="hero__radio-circle"></span>
+                <span className={`hero__radio-circle ${formData.teethGap === 'No' ? 'active' : ''}`}></span>
                 No
               </label>
             </div>
 
             <form className="hero__form" onSubmit={handleSubmit}>
-              <div className="hero__form-row">
-                <div className="hero__form-field">
-                  <label htmlFor="fullName" className="hero__field-label">Full Name*</label>
+              <div className="hero__form-field hero__field-name">
+                <label htmlFor="fullName" className="hero__field-label">Full Name*</label>
+                <input
+                  id="fullName"
+                  type="text"
+                  name="fullName"
+                  placeholder="Ajay Kumar"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className="hero__input"
+                  required
+                />
+              </div>
+
+              <div className="hero__form-field hero__field-mobile">
+                <div className="hero__mobile-wrapper">
+                  <span className="hero__country-code">+91</span>
                   <input
-                    id="fullName"
-                    type="text"
-                    name="fullName"
-                    placeholder="Ajay Kumar"
-                    value={formData.fullName}
+                    id="mobile"
+                    type="tel"
+                    name="mobile"
+                    placeholder="Mobile number*"
+                    value={formData.mobile}
                     onChange={handleInputChange}
-                    className="hero__input"
+                    className="hero__input hero__input--mobile"
+                    pattern="[0-9]{10}"
                     required
                   />
                 </div>
-
-                <div className="hero__form-field">
-                  <label htmlFor="mobile" className="hero__field-label">Mobile number*</label>
-                  <div className="hero__mobile-wrapper">
-                    <span className="hero__country-code">+91</span>
-                    <input
-                      id="mobile"
-                      type="tel"
-                      name="mobile"
-                      placeholder="Mobile number*"
-                      value={formData.mobile}
-                      onChange={handleInputChange}
-                      className="hero__input hero__input--mobile"
-                      pattern="[0-9]{10}"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <button type="submit" className="hero__cta" id="book-scan-btn">
-                  Book a Free Scan
-                </button>
               </div>
 
               <div className="hero__consent">
@@ -161,6 +178,10 @@ function Hero() {
                   </span>
                 </label>
               </div>
+
+              <button type="submit" className="hero__cta" id="book-scan-btn">
+                Book a Free Scan
+              </button>
             </form>
           </div>
         </div>
@@ -170,12 +191,13 @@ function Hero() {
           <div className="hero__clinic-card">
             <div className="hero__clinic-content">
               <p className="hero__clinic-text">
-                <strong>Book a Free 3D Teeth Scan and Orthodontist Consult in a Clove Dental Clinic near you.</strong>
+                Book a Free 3D Teeth Scan and Orthodontist Consult in a<br />
+                Clove Dental Clinic near you.
               </p>
             </div>
             <div className="hero__clinic-right">
               <img
-                src="/images/clove-dental.png"
+                src="/images/clove.png"
                 alt="Clove Dental"
                 className="hero__clinic-logo"
               />
@@ -189,6 +211,38 @@ function Hero() {
           </div>
         </div>
       </section>
+
+      {/* ===== BOTTOM SCROLLING MARQUEE ===== */}
+      <div className="launch-marquee">
+        <div className="launch-marquee__track">
+          {/* Duplicated to create the seamless infinite loop */}
+          <div className="launch-marquee__content">{marqueeContent}</div>
+          <div className="launch-marquee__content">{marqueeContent}</div>
+        </div>
+      </div>
+
+      {/* ===== CUSTOM POPUP MODAL ===== */}
+      {showPopup && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <div className="popup-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h3 className="popup-title">Scan Booked Successfully!</h3>
+            <p className="popup-text">
+              Thank you, <strong>{formData.fullName}</strong>. Your free scan and Orthodontist consult have been confirmed.
+            </p>
+            <p className="popup-text">
+              Our team will call you shortly at <strong>+91 {formData.mobile}</strong> with further details.
+            </p>
+            <button onClick={closePopup} className="popup-close-btn">
+              Got it, thanks!
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -1,9 +1,45 @@
-import { useState } from 'react';
-import faqData from '../../data/faq.json';
+import { useState, useEffect } from 'react';
 import './FAQ.css';
 
 function FAQ() {
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [openId, setOpenId] = useState(null);
+
+  // Live API Fetch using JSONPlaceholder
+  const fetchFAQs = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Fetching 5 dummy posts to act as our FAQs
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Mapping the JSONPlaceholder data (title/body) to our FAQ structure (question/answer)
+      const mappedFaqs = data.map((item) => ({
+        id: item.id,
+        question: item.title.charAt(0).toUpperCase() + item.title.slice(1) + '?', // Capitalize and add question mark
+        answer: item.body.charAt(0).toUpperCase() + item.body.slice(1) + '.'
+      }));
+
+      setFaqs(mappedFaqs);
+    } catch (err) {
+      setError(err.message || 'Failed to load FAQs from the server. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch data immediately when the component loads
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
 
   const toggleFAQ = (id) => {
     setOpenId((prevId) => (prevId === id ? null : id));
@@ -16,96 +52,87 @@ function FAQ() {
     }
   };
 
-  return (
-    <section className="faq section" id="faq">
-      <div className="container">
-        <div className="faq__header">
-          <span className="faq__tag">Support</span>
-          <h2 className="section-title">
-            Got Questions? <span className="faq__title-highlight">We've got answers.</span>
-          </h2>
-          <p className="section-subtitle">
-            Everything you need to know about clear aligners and your smile transformation journey.
-          </p>
-        </div>
+  // --- Render Helpers ---
 
-        <div className="faq__list" role="region" aria-label="Frequently Asked Questions">
-          {faqData.map((item, index) => {
-            const isOpen = openId === item.id;
-            return (
-              <div
-                key={item.id}
-                className={`faq__item ${isOpen ? 'faq__item--open' : ''}`}
-                style={{ animationDelay: `${index * 80}ms` }}
-              >
-                <button
-                  className="faq__question"
-                  onClick={() => toggleFAQ(item.id)}
-                  onKeyDown={(e) => handleKeyDown(e, item.id)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${item.id}`}
-                  id={`faq-question-${item.id}`}
-                >
-                  <span className="faq__question-number">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <span className="faq__question-text">{item.question}</span>
-                  <span className="faq__icon" aria-hidden="true">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      className={`faq__icon-svg ${isOpen ? 'faq__icon-svg--open' : ''}`}
-                    >
-                      <path
-                        d="M10 4V16"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        className="faq__icon-vertical"
-                      />
-                      <path
-                        d="M4 10H16"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <div
-                  className="faq__answer-wrapper"
-                  id={`faq-answer-${item.id}`}
-                  role="region"
-                  aria-labelledby={`faq-question-${item.id}`}
-                >
-                  <div className="faq__answer">
-                    <p>{item.answer}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* CTA below FAQ */}
-        <div className="faq__cta-wrapper">
-          <div className="faq__cta-card">
-            <div className="faq__cta-content">
-              <h3 className="faq__cta-title">Still have questions?</h3>
-              <p className="faq__cta-text">
-                Our team is ready to help you start your smile journey. Book a free consultation today.
-              </p>
-            </div>
-            <a href="#hero" className="faq__cta-btn">
-              Book Free Consultation
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
+  const renderSkeleton = () => (
+    <div className="faq__list" aria-hidden="true">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div key={i} className="faq__item faq__item--skeleton">
+          <div className="faq__skeleton-question">
+            <div className="faq__skeleton-text"></div>
+            <div className="faq__skeleton-icon"></div>
           </div>
         </div>
+      ))}
+    </div>
+  );
+
+  const renderError = () => (
+    <div className="faq__error-state">
+      <p className="faq__error-text">{error}</p>
+      <button onClick={fetchFAQs} className="faq__retry-btn">
+        Try Again
+      </button>
+    </div>
+  );
+
+  return (
+    <section className="faq" id="faq">
+      <div className="faq__header">
+        <h2 className="faq__title">
+          <span className="faq__title-highlight">Got Questions?</span> We’ve got answers
+        </h2>
+      </div>
+
+      <div className="faq__container">
+        {loading && renderSkeleton()}
+        {error && !loading && renderError()}
+        
+        {!loading && !error && (
+          <div className="faq__list" role="region" aria-label="Frequently Asked Questions">
+            {faqs.map((item) => {
+              const isOpen = openId === item.id;
+              return (
+                <div key={item.id} className="faq__item">
+                  <button
+                    className="faq__question"
+                    onClick={() => toggleFAQ(item.id)}
+                    onKeyDown={(e) => handleKeyDown(e, item.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${item.id}`}
+                    id={`faq-question-${item.id}`}
+                  >
+                    <span className="faq__question-text">{item.question}</span>
+                    <span className="faq__icon" aria-hidden="true">
+                      {isOpen ? (
+                        // Minus Icon
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                          <path d="M5 12h14" />
+                        </svg>
+                      ) : (
+                        // Plus Icon
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                      )}
+                    </span>
+                  </button>
+                  
+                  <div
+                    className={`faq__answer-wrapper ${isOpen ? 'open' : ''}`}
+                    id={`faq-answer-${item.id}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${item.id}`}
+                  >
+                    <div className="faq__answer">
+                      <p>{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

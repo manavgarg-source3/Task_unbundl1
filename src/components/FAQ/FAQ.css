@@ -1,277 +1,247 @@
+/* Import Montserrat to ensure the title matches Figma exactly */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
 /* ============================================
-   FAQ Section Styles
+   Desktop Layout (1440px Base)
    ============================================ */
 
 .faq {
-  background: var(--color-gray-50);
-  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background: #ffffff;
+  
+  /* Applying Figma's 50px gap between header and list */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  
+  /* Fallback padding if needed, though constrained by inner elements */
+  padding: 80px 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* --- Header --- */
 .faq__header {
+  width: 100%;
+  max-width: 750px;
   text-align: center;
-  margin-bottom: var(--spacing-3xl);
 }
 
-.faq__tag {
-  display: inline-block;
-  background: var(--color-primary-bg);
-  color: var(--color-primary);
-  padding: 6px 18px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--spacing-md);
+.faq__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 130%; /* 1.3 */
+  letter-spacing: 0%;
+  color: #111827; /* Dark gray for "We've got answers" */
+  margin: 0;
 }
 
 .faq__title-highlight {
-  color: var(--color-primary);
+  color: #9061D4; /* Purple for "Got Questions?" */
 }
 
-/* --- FAQ List --- */
+/* --- List Container --- */
+.faq__container {
+  width: 100%;
+  max-width: 1240px; /* Exact Figma width */
+  padding: 0 100px; /* Maps to 1440 - 1240 = 200 / 2 */
+  box-sizing: border-box;
+}
+
 .faq__list {
-  max-width: 800px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  width: 100%;
 }
 
-/* --- FAQ Item --- */
+/* --- Individual FAQ Item --- */
 .faq__item {
-  background: var(--color-white);
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all var(--transition-base);
-  animation: fadeInUp 0.4s ease forwards;
-  opacity: 0;
+  border-bottom: 1px solid #E5E7EB; /* Clean line separator from design */
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.faq__item:hover {
-  border-color: var(--color-primary-light);
-  box-shadow: var(--shadow-sm);
-}
-
-.faq__item--open {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.1);
-}
-
-/* --- Question Button --- */
 .faq__question {
   width: 100%;
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  justify-content: space-between;
   text-align: left;
   cursor: pointer;
-  transition: background var(--transition-fast);
-  background: transparent;
-}
-
-.faq__question:hover {
-  background: var(--color-gray-50);
-}
-
-.faq__item--open .faq__question {
-  background: var(--color-primary-bg-subtle);
+  
+  /* Exact padding from Figma (Top/Bottom 32px, Left/Right 16px) */
+  padding: 32px 16px;
+  gap: 16px;
+  outline: none;
 }
 
 .faq__question:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: -2px;
-  border-radius: var(--radius-lg);
-}
-
-.faq__question-number {
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  color: var(--color-primary);
-  min-width: 28px;
-  flex-shrink: 0;
+  background-color: #F9FAFB;
 }
 
 .faq__question-text {
-  flex: 1;
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  color: var(--color-gray-800);
-  line-height: 1.5;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.4;
 }
 
-.faq__item--open .faq__question-text {
-  color: var(--color-primary-dark);
-}
-
-/* --- Icon --- */
 .faq__icon {
+  color: #111827;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-gray-100);
-  color: var(--color-gray-500);
-  flex-shrink: 0;
-  transition: all var(--transition-base);
-}
-
-.faq__item--open .faq__icon {
-  background: var(--color-primary);
-  color: var(--color-white);
-  transform: rotate(45deg);
-}
-
-.faq__icon-svg {
-  transition: transform var(--transition-base);
-}
-
-.faq__icon-vertical {
-  transition: opacity var(--transition-base);
-}
-
-.faq__icon-svg--open .faq__icon-vertical {
-  opacity: 0;
 }
 
 /* --- Answer --- */
 .faq__answer-wrapper {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, opacity 0.3s ease;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
   opacity: 0;
 }
 
-.faq__item--open .faq__answer-wrapper {
-  max-height: 400px;
+.faq__answer-wrapper.open {
+  max-height: 500px;
   opacity: 1;
 }
 
 .faq__answer {
-  padding: 0 var(--spacing-xl) var(--spacing-xl);
-  padding-left: calc(var(--spacing-xl) + 28px + var(--spacing-md));
+  /* Aligns perfectly with the question text above it */
+  padding: 0 16px 32px 16px; 
 }
 
 .faq__answer p {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-600);
-  line-height: 1.8;
-}
-
-/* --- CTA Card --- */
-.faq__cta-wrapper {
-  margin-top: var(--spacing-3xl);
-}
-
-.faq__cta-card {
-  max-width: 800px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl) var(--spacing-3xl);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-xl);
-}
-
-.faq__cta-title {
-  font-size: var(--font-size-2xl);
-  font-weight: 700;
-  color: var(--color-white);
-  margin-bottom: var(--spacing-sm);
-}
-
-.faq__cta-text {
-  font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  color: #4B5563;
   line-height: 1.6;
-  max-width: 400px;
-}
-
-.faq__cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  background: var(--color-white);
-  color: var(--color-primary);
-  padding: 14px 28px;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  font-size: var(--font-size-sm);
-  transition: all var(--transition-fast);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.faq__cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  max-width: 900px;
 }
 
 /* ============================================
-   Responsive Styles
+   Loading Skeleton
    ============================================ */
+.faq__item--skeleton {
+  pointer-events: none;
+}
 
-@media (max-width: 768px) {
-  .faq__question {
-    padding: var(--spacing-md) var(--spacing-lg);
-  }
+.faq__skeleton-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 16px;
+}
 
-  .faq__answer {
-    padding: 0 var(--spacing-lg) var(--spacing-lg);
-    padding-left: calc(var(--spacing-lg) + 28px + var(--spacing-md));
-  }
+.faq__skeleton-text {
+  height: 24px;
+  width: 40%;
+  background: #E5E7EB;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
 
-  .faq__cta-card {
-    flex-direction: column;
-    text-align: center;
-    padding: var(--spacing-2xl);
-  }
+.faq__skeleton-icon {
+  width: 24px;
+  height: 24px;
+  background: #E5E7EB;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite ease-in-out;
+}
 
-  .faq__cta-text {
-    max-width: none;
-  }
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
 
-  .faq__cta-btn {
-    width: 100%;
-    justify-content: center;
+/* ============================================
+   Error State
+   ============================================ */
+.faq__error-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #FEF2F2;
+  border-radius: 12px;
+  border: 1px solid #FCA5A5;
+}
+
+.faq__error-text {
+  color: #B91C1C;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.faq__retry-btn {
+  background: #B91C1C;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.faq__retry-btn:hover {
+  opacity: 0.9;
+}
+
+
+/* ============================================
+   Mobile Layout (360px Base Constraints)
+   ============================================ */
+@media (max-width: 1024px) {
+  .faq__container {
+    padding: 0 40px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .faq {
+    /* Mobile Figma specs: padding 40px 16px, gap 32px */
+    padding: 40px 16px;
+    gap: 32px;
+  }
+
+  .faq__container {
+    padding: 0; /* Resetting desktop padding so the 16px outer padding governs */
+  }
+
+  .faq__header {
+    padding: 0 16px; /* Ensuring title doesn't touch the edges */
+  }
+
+  .faq__title {
+    font-size: 32px; /* Scaled down for readability */
+    line-height: 1.2;
+  }
+
   .faq__question {
-    padding: var(--spacing-md);
-    gap: var(--spacing-sm);
+    /* Mobile Figma specs: padding 24px 0 (removing left/right to sit flush) */
+    padding: 24px 0;
   }
 
   .faq__question-text {
-    font-size: var(--font-size-sm);
+    font-size: 18px;
   }
 
   .faq__answer {
-    padding: 0 var(--spacing-md) var(--spacing-md);
-    padding-left: calc(var(--spacing-md) + 28px + var(--spacing-sm));
+    padding: 0 0 24px 0; 
   }
 
-  .faq__icon {
-    width: 28px;
-    height: 28px;
+  .faq__skeleton-question {
+    padding: 24px 0;
+  }
+  
+  .faq__skeleton-text {
+    width: 70%; /* Wider skeleton line on small screens */
   }
 }

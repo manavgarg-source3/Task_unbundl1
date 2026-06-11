@@ -1,34 +1,30 @@
 [
   {
     "id": 1,
-    "image": "/images/smile-1.png",
-    "treatmentType": "Crowding",
-    "duration": "8 months",
-    "patientName": "Priya S.",
-    "description": "Severe crowding corrected with clear aligners"
+    "beforeImage": "/images/gaps1.png",
+    "afterImage": "/images/gaps2.png",
+    "concern": "Gaps",
+    "duration": "8 months"
   },
   {
     "id": 2,
-    "image": "/images/smile-2.png",
-    "treatmentType": "Gap Teeth",
-    "duration": "6 months",
-    "patientName": "Rahul M.",
-    "description": "Midline diastema closed with precision aligners"
+    "beforeImage": "/images/crooked1.png",
+    "afterImage": "/images/crooked2.png",
+    "concern": "Crooked Teeth",
+    "duration": "8 months"
   },
   {
     "id": 3,
-    "image": "/images/smile-3.png",
-    "treatmentType": "Overbite",
-    "duration": "10 months",
-    "patientName": "Ananya K.",
-    "description": "Overbite correction for a balanced smile"
+    "beforeImage": "/images/open1.png",
+    "afterImage": "/images/open2.png",
+    "concern": "Open Bite",
+    "duration": "8 months"
   },
   {
     "id": 4,
-    "image": "/images/smile-4.png",
-    "treatmentType": "Underbite",
-    "duration": "12 months",
-    "patientName": "Vikram R.",
-    "description": "Underbite correction with custom clear aligners"
+    "beforeImage": "/images/protruding1.png",
+    "afterImage": "/images/protruding2.png",
+    "concern": "Protruding Teeth",
+    "duration": "8 months"
   }
 ]
