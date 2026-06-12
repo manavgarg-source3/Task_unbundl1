@@ -1,10 +1,10 @@
 import './WhyWhistle.css';
 
-// Embedded data matching your Figma design perfectly
+
 const whyWhistleData = [
   {
     id: 1,
-    image: '/images/teeth.png', // Replace with your actual image paths
+    image: '/images/teeth.png', 
     title: 'Custom-made & invisible',
     description: 'Tailored for your teeth and smile with a clear, discreet appearance.'
   },

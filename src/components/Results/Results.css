@@ -1,9 +1,7 @@
 /* Import exact font requested */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 
-/* ============================================
-   Desktop Layout (1440px base)
-   ============================================ */
+
 
 .results {
   width: 100%;
@@ -11,7 +9,7 @@
   margin: 0 auto;
   box-sizing: border-box;
   
-  /* Exact Desktop Padding & Gap */
+ 
   padding-top: 72px;
   padding-right: 100px;
   padding-bottom: 72px;
@@ -19,18 +17,18 @@
   
   display: flex;
   flex-direction: column;
-  gap: 40px; /* Gap between title and grid */
+  gap: 40px; 
   
   background-color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .results__title {
-  /* Exact Figma Typography */
+
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 40px;
-  line-height: 130%; /* 1.3 */
+  line-height: 130%; 
   letter-spacing: 0%;
   
   margin: 0;
@@ -38,24 +36,22 @@
   color: #111827;
 }
 
-/* Grid Container */
+
 .results__carousel {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px; /* Default desktop card gap */
+  gap: 24px; 
   width: 100%;
 }
 
-/* ============================================
-   Card Design (Exact Padding & Gap)
-   ============================================ */
+
 
 .results__card {
   background-color: #F0F6FF; 
   border-radius: 8px;
   box-sizing: border-box;
   
-  /* Exact Card Padding */
+
   padding-top: 8px;
   padding-right: 8px;
   padding-bottom: 16px;
@@ -63,20 +59,20 @@
   
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Exact internal card gap */
+  gap: 16px; 
   
-  /* --- ADDED FOR HOVER EFFECT --- */
+ 
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- ADDED HOVER STATE --- */
+
 .results__card:hover {
   transform: translateY(-8px);
   box-shadow: 0 16px 32px rgba(17, 24, 39, 0.08);
 }
 
-/* Grouping images and labels tightly */
+
 .results__media {
   display: flex;
   flex-direction: column;
@@ -85,7 +81,7 @@
 
 .results__images {
   display: flex;
-  gap: 4px; /* Thin visual gap between the two photos */
+  gap: 4px; 
   border-radius: 4px;
   overflow: hidden;
 }
@@ -95,16 +91,15 @@
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
-  /* Optional: Add a slight zoom to the image on card hover */
+ 
   transition: transform 0.4s ease;
 }
 
-/* Optional: Subtle image zoom when the card is hovered */
+
 .results__card:hover .results__img {
   transform: scale(1.03);
 }
 
-/* Labels */
 .results__labels {
   display: flex;
   width: 100%;
@@ -118,7 +113,7 @@
   color: #111827;
 }
 
-/* Details Rows */
+
 .results__details {
   display: flex;
   flex-direction: column;
@@ -143,12 +138,9 @@
   color: #111827; 
 }
 
-/* ============================================
-   Mobile Swipe Carousel Layout (360px base)
-   ============================================ */
 
 @media (max-width: 1024px) {
-  /* Intermediate tablet fallback */
+  
   .results {
     padding: 60px 40px;
   }
@@ -159,20 +151,20 @@
 
 @media (max-width: 768px) {
   .results {
-    /* Exact Mobile Section Specs */
+
     padding-top: 64px;
-    padding-right: 0; /* Removing right padding so cards bleed off edge smoothly */
+    padding-right: 0;
     padding-bottom: 24px;
-    padding-left: 16px; /* Left padding maintained for initial alignment */
-    gap: 24px; /* Exact mobile gap between title and carousel */
+    padding-left: 16px; 
+    gap: 24px;
   }
 
   .results__title {
-    font-size: 32px; /* Scaled for mobile readability */
-    padding-right: 16px; /* Restoring right padding specifically for the title */
+    font-size: 32px; 
+    padding-right: 16px; 
   }
 
-  /* Converting Grid to Horizontal Scroll */
+
   .results__carousel {
     display: flex;
     flex-wrap: nowrap;
@@ -180,13 +172,13 @@
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    gap: 16px; /* Space between cards in scroll */
+    gap: 16px; 
     
-    /* Padding to allow scrolling past the last item */
+    
     padding-right: 16px; 
-    padding-bottom: 12px; /* Space for invisible scrollbar */
+    padding-bottom: 12px; 
     
-    /* Hide scrollbars for clean UI */
+
     scrollbar-width: none; 
     -ms-overflow-style: none;
   }
@@ -196,13 +188,13 @@
   }
 
   .results__card {
-    /* Exact Mobile Card Specs */
-    flex: 0 0 252px; /* Forces exact width: 252px */
+
+    flex: 0 0 252px; 
     width: 252px;
-    scroll-snap-align: start; /* Snaps perfectly to the left */
+    scroll-snap-align: start; 
   }
   
-  /* Disable hover lift on mobile to prevent sticky hover states on touch */
+
   @media (hover: none) {
     .results__card:hover {
       transform: none;

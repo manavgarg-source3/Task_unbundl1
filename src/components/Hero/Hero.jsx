@@ -33,7 +33,7 @@ function Hero() {
     setFormData({ teethGap: '', fullName: '', mobile: '', consent: false });
   };
 
-  // Group of repeating text for the marquee
+  
   const marqueeContent = (
     <>
       <span>Our inaugural launch benefit</span>
@@ -47,7 +47,7 @@ function Hero() {
 
   return (
     <>
-      {/* ===== HEADER ===== */}
+  
       <header className="header" id="header">
         <div className="header__inner">
           <div className="header__logo-container">
@@ -66,7 +66,7 @@ function Hero() {
           </button>
         </div>
         
-        {/* Offer Banner */}
+  
         <div className="header__banner">
           <p className="header__banner-text">
             Starting at <span className="header__banner-strike">Rs 69,999</span> Rs 47,999. Hurry! Offer ends soon.
@@ -74,7 +74,7 @@ function Hero() {
         </div>
       </header>
 
-      {/* ===== HERO SECTION ===== */}
+
       <section className="hero" id="hero">
         <div className="hero__top">
           <div className="hero__top-inner">
@@ -97,7 +97,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Hero Form Section */}
+    
         <div className="hero__form-section">
           <div className="hero__form-inner">
             <h2 className="hero__form-heading">
@@ -186,7 +186,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Clove Dental Card */}
+        
         <div className="hero__clinic-section">
           <div className="hero__clinic-card">
             <div className="hero__clinic-content">
@@ -212,16 +212,16 @@ function Hero() {
         </div>
       </section>
 
-      {/* ===== BOTTOM SCROLLING MARQUEE ===== */}
+
       <div className="launch-marquee">
         <div className="launch-marquee__track">
-          {/* Duplicated to create the seamless infinite loop */}
+         
           <div className="launch-marquee__content">{marqueeContent}</div>
           <div className="launch-marquee__content">{marqueeContent}</div>
         </div>
       </div>
 
-      {/* ===== CUSTOM POPUP MODAL ===== */}
+
       {showPopup && (
         <div className="popup-overlay" onClick={closePopup}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>

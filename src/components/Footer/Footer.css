@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@700&display=swap');
 
-/* ============================================
-   Desktop Layout (1440px Base)
-   ============================================ */
+
 .footer {
   width: 100%;
   background-color: #1A1C19;
@@ -29,7 +27,7 @@
   gap: 125px; 
 }
 
-/* --- Typography --- */
+
 .footer__title {
   font-family: 'Instrument Sans', sans-serif;
   font-weight: 700;
@@ -37,11 +35,11 @@
   font-size: 24px;
   line-height: 32px;
   letter-spacing: 0%;
-  margin: 0 0 40px 0; /* Ensures gap below titles */
+  margin: 0 0 40px 0;
   color: #FFFFFF;
 }
 
-/* --- Columns --- */
+
 .footer__column {
   display: flex;
   flex-direction: column;
@@ -56,7 +54,7 @@
   padding-top: 72px; 
 }
 
-/* --- Lists and Links --- */
+
 .footer__list {
   list-style: none;
   padding: 0;
@@ -79,7 +77,7 @@
 
 .footer__link:hover { opacity: 0.7; }
 
-/* --- Contact Icons --- */
+
 .footer__link--icon {
   display: flex;
   align-items: center;
@@ -89,7 +87,7 @@
 
 .footer__icon { flex-shrink: 0; }
 
-/* --- Social Icons --- */
+
 .footer__socials {
   display: flex;
   align-items: center;
@@ -110,9 +108,7 @@
   opacity: 0.8;
 }
 
-/* ============================================
-   Responsive Fallbacks
-   ============================================ */
+
 @media (max-width: 1100px) {
   .footer__inner {
     height: auto;
@@ -124,14 +120,12 @@
   .footer__column--legal { padding-top: 0; }
 }
 
-/* ============================================
-   Exact Mobile Layout (Fixes Overlap & Centers)
-   ============================================ */
+
 @media (max-width: 768px) {
   .footer__inner {
     width: 100%;
     max-width: 360px;
-    /* Changed from fixed height to min-height to allow text to wrap naturally without overflowing */
+   
     min-height: 476px;
     height: auto;
     padding: 40px 16px;
@@ -140,10 +134,10 @@
     margin: 0 auto;
   }
   
-  /* Top 2 Columns Side-by-Side */
+
   .footer__top-wrapper {
     width: 100%;
-    /* Changed to min-height to prevent "FAQs" from bleeding into legal section */
+   
     min-height: 198px;
     height: auto;
     justify-content: space-between;
@@ -152,13 +146,13 @@
 
   .footer__column--quick-links,
   .footer__column--contact { 
-    width: 48%; /* Split available space to prevent overlap */
+    width: 48%; 
   }
   
   .footer__title { 
     font-size: 18px; 
     line-height: 24px; 
-    margin-bottom: 24px; /* Reduced gap for mobile */
+    margin-bottom: 24px; 
   }
   
   .footer__link { font-size: 14px; }
@@ -166,17 +160,15 @@
   .footer__list--contact { gap: 18px; }
   .footer__link--icon { gap: 8px; font-size: 14px; }
 
-  /* ==========================================
-     Fix: Legal Section Centered & Bordered
-     ========================================== */
+
   .footer__column--legal {
-    order: 2; /* Forces it below the top wrapper */
+    order: 2; 
     width: 100%;
     padding: 24px 0;
     border-top: 1px solid #333333;
     border-bottom: 1px solid #333333;
     display: flex;
-    align-items: center; /* Centers the list inside the column */
+    align-items: center; 
   }
 
   .footer__list--legal {
@@ -186,18 +178,16 @@
     gap: 24px;
   }
 
-  /* ==========================================
-     Fix: Social Section Centered
-     ========================================== */
+
   .footer__column--social {
-    order: 3; /* Forces it below Legal section */
+    order: 3; 
     width: 100%;
-    align-items: center; /* Centers the "Follow us on" text */
+    align-items: center; 
   }
 
   .footer__socials {
     width: 100%;
-    justify-content: center; /* Centers the icons */
+    justify-content: center; 
     gap: 32px;
   }
 }

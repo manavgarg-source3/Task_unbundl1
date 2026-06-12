@@ -5,9 +5,9 @@ function Footer() {
     <footer className="footer">
       <div className="footer__inner">
         
-        {/* Top Wrapper - Keeps Col 1 & 2 side-by-side on Mobile */}
+
         <div className="footer__top-wrapper">
-          {/* Column 1: Quick Links */}
+         
           <div className="footer__column footer__column--quick-links">
             <h3 className="footer__title">Quick Links</h3>
             <ul className="footer__list footer__list--quick">
@@ -20,7 +20,7 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: Get in Touch Now! */}
+        
           <div className="footer__column footer__column--contact">
             <h3 className="footer__title">Get in Touch Now!</h3>
             <ul className="footer__list footer__list--contact">
@@ -45,7 +45,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Column 3: Follow us on */}
+     
         <div className="footer__column footer__column--social">
           <h3 className="footer__title">Follow us on</h3>
           <div className="footer__socials">
@@ -69,7 +69,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Column 4: Legal / Policies */}
+        
         <div className="footer__column footer__column--legal">
           <ul className="footer__list footer__list--legal">
             <li><a href="#privacy" className="footer__link">Privacy Policy</a></li>

@@ -7,24 +7,25 @@ function FAQ() {
   const [error, setError] = useState(null);
   const [openId, setOpenId] = useState(null);
 
-  // Live API Fetch using JSONPlaceholder
-  const fetchFAQs = async () => {
-    setLoading(true);
-    setError(null);
+  
+  const fetchFAQs = async (resetLoading = true) => {
+    if (resetLoading) {
+      setLoading(true);
+      setError(null);
+    }
+
     try {
-      // Fetching 5 dummy posts to act as our FAQs
       const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
-      // Mapping the JSONPlaceholder data (title/body) to our FAQ structure (question/answer)
+
       const mappedFaqs = data.map((item) => ({
         id: item.id,
-        question: item.title.charAt(0).toUpperCase() + item.title.slice(1) + '?', // Capitalize and add question mark
+        question: item.title.charAt(0).toUpperCase() + item.title.slice(1) + '?', 
         answer: item.body.charAt(0).toUpperCase() + item.body.slice(1) + '.'
       }));
 
@@ -36,9 +37,8 @@ function FAQ() {
     }
   };
 
-  // Fetch data immediately when the component loads
   useEffect(() => {
-    fetchFAQs();
+    fetchFAQs(false);
   }, []);
 
   const toggleFAQ = (id) => {
@@ -52,7 +52,7 @@ function FAQ() {
     }
   };
 
-  // --- Render Helpers ---
+
 
   const renderSkeleton = () => (
     <div className="faq__list" aria-hidden="true">
