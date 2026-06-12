@@ -38,14 +38,16 @@ src/
 │   ├── WhyWhistle/
 │   │   ├── WhyWhistle.jsx    # API-powered feature cards
 │   │   └── WhyWhistle.css    # Card grid with loading/error states
-│   └── FAQ/
-│       ├── FAQ.jsx           # Accordion with keyboard accessibility
-│       └── FAQ.css           # Expand/collapse animations
+│   ├── FAQ/
+│   │   ├── FAQ.jsx           # Accordion with keyboard accessibility
+│   │   └── FAQ.css           # Expand/collapse animations
+│   └── Footer/
+│       ├── Footer.jsx        # Site footer with links and branding
+│       └── Footer.css        # Footer layout and styles
 ├── data/
-│   ├── results.json          # Smile transformation data (local)
-│   └── faq.json              # FAQ questions and answers (local)
+│   └── results.json          # Smile transformation data (local)
 ├── App.jsx                   # Root component composing all sections
-├── main.jsx                  # React 18 entry point
+├── main.jsx                  # React entry point
 └── index.css                 # Global design system and CSS reset
 ```
 
@@ -53,17 +55,19 @@ src/
 
 ## 📊 Data Sources
 
-| Section       | Source                                    | Rationale                                                                                 |
-|---------------|-------------------------------------------|-------------------------------------------------------------------------------------------|
-| **Hero**      | Static/inline                             | Form inputs and navigation — no external data needed                                     |
-| **Results**   | `src/data/results.json`                   | Before/after smile transformations require dental-specific data that no public API provides |
-| **Why Whistle** | [DummyJSON API](https://dummyjson.com/products?limit=4) | Uses `thumbnail` → image, `title` → heading, `description` → content as required        |
-| **FAQ**       | `src/data/faq.json`                       | FAQ content is domain-specific (dental aligners) and requires curated answers             |
+| Section         | Source                                                        | Rationale                                                                                  |
+|-----------------|---------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| **Hero**        | Static/inline                                                 | Form inputs and navigation — no external data needed                                       |
+| **Results**     | `src/data/results.json`                                       | Before/after smile transformations require dental-specific data that no public API provides |
+| **Why Whistle** | [DummyJSON API](https://dummyjson.com/products?limit=4)       | Uses `thumbnail` → image, `title` → heading, `description` → content as required           |
+| **FAQ**         | Static/inline                                                 | FAQ content is domain-specific (dental aligners) and requires curated answers               |
+| **Footer**      | Static/inline                                                 | Footer links and branding — no external data needed                                        |
 
 ### Data Decision Rationale
 
 - **Why Whistle section uses a public API** (`dummyjson.com/products?limit=4`) to demonstrate dynamic data handling with `useState`, `useEffect`, loading states, and error handling as specified in the assessment.
-- **Results and FAQ use local JSON** because their content is domain-specific (dental transformations and aligner FAQs) and no public API provides suitable dental data.
+- **Results uses local JSON** because its content is domain-specific (dental transformations) and no public API provides suitable dental data.
+- **FAQ and Footer use static data** as their content is curated and domain-specific.
 
 ---
 
@@ -115,13 +119,14 @@ Three breakpoints ensure the design adapts gracefully:
 - **Smooth accordion** with CSS `max-height` transitions
 - **Purple gradient CTA buttons** with hover lift effects
 - **Micro-animations** (fade-in-up on scroll, hover transforms)
+- **Footer** with site links and branding
 
 ---
 
 ## 🛠 Tech Stack
 
-- **React 18** — Functional components with hooks
-- **Vite** — Lightning-fast HMR and build tooling
+- **React 19** — Functional components with hooks
+- **Vite 8** — Lightning-fast HMR and build tooling
 - **Custom CSS** — Design system with CSS custom properties
 - **DummyJSON API** — External data source for dynamic rendering
 
